@@ -1,41 +1,29 @@
-package org.oppia.app.settings.administrator
+package org.oppia.app.administratorcontrols
 
-import android.app.Application
-import android.content.Context
+
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
-import dagger.BindsInstance
-import dagger.Component
-import dagger.Module
-import dagger.Provides
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.hamcrest.Matchers.not
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.oppia.app.R
-import org.oppia.app.settings.profile.ProfileListActivityTest
-import org.oppia.util.logging.EnableConsoleLog
-import org.oppia.util.logging.EnableFileLog
-import org.oppia.util.logging.GlobalLogLevel
-import org.oppia.util.logging.LogLevel
-import org.oppia.util.threading.BackgroundDispatcher
-import org.oppia.util.threading.BlockingDispatcher
-import javax.inject.Qualifier
-import javax.inject.Singleton
+import org.oppia.app.administratorcontrols.appversion.AppVersionActivity
+import org.oppia.app.profile.ProfileActivity
 
 class AdministratorControlsFragmentTest {
 
@@ -99,6 +87,35 @@ class AdministratorControlsFragmentTest {
     }
   }
 
+  @Test
+  fun testAdministratorControlsFragment_loadFragment_clickLogoutButton_displaysLogOutDialog() {
+    launchAdministratorControlsActivityIntent(0).use {
+      onView(withId(R.id.log_out_text_view)).perform(click())
+      onView(withText(R.string.log_out_dialog_message)).inRoot(isDialog()).check(matches(isDisplayed()))
+      onView(withText(R.string.log_out_dialog_okay_button)).inRoot(isDialog()).check(matches(isDisplayed()))
+      onView(withText(R.string.log_out_dialog_cancel_button)).inRoot(isDialog()).check(matches(isDisplayed()))
+    }
+  }
+
+  // TODO: Please change ProfileActivity to LoginActivity once it is added.
+  @Test
+  fun testAdministratorControlsFragment_loadFragment_clickOkButtonInLogoutDialog_checkOpensProfileActivity() {
+    launchAdministratorControlsActivityIntent(0).use {
+      onView(withId(R.id.log_out_text_view)).perform(click())
+      onView(withText(R.string.log_out_dialog_message)).inRoot(isDialog()).check(matches(isDisplayed()))
+      onView(withText(R.string.log_out_dialog_okay_button)).perform(click())
+      intended(hasComponent(ProfileActivity::class.java.name))
+    }
+  }
+
+  @Test
+  fun testAdministratorControlsFragment_loadFragment_clickAppVersion_checkOpensAppVersionActivity() {
+    launchAdministratorControlsActivityIntent(0).use {
+      onView(withId(R.id.app_version_text_view)).perform(click())
+      intended(hasComponent(AppVersionActivity::class.java.name))
+    }
+  }
+
   private fun launchAdministratorControlsActivityIntent(profileId: Int?): ActivityScenario<AdministratorControlsActivity> {
     val intent = AdministratorControlsActivity.createAdministratorControlsActivityIntent(
       ApplicationProvider.getApplicationContext(),
@@ -110,67 +127,5 @@ class AdministratorControlsFragmentTest {
   @After
   fun tearDown() {
     Intents.release()
-  }
-
-  @Qualifier
-  annotation class TestDispatcher
-
-  @Module
-  class TestModule {
-    @Provides
-    @Singleton
-    fun provideContext(application: Application): Context {
-      return application
-    }
-
-    @ExperimentalCoroutinesApi
-    @Singleton
-    @Provides
-    @TestDispatcher
-    fun provideTestDispatcher(): CoroutineDispatcher {
-      return TestCoroutineDispatcher()
-    }
-
-    @Singleton
-    @Provides
-    @BackgroundDispatcher
-    fun provideBackgroundDispatcher(@TestDispatcher testDispatcher: CoroutineDispatcher): CoroutineDispatcher {
-      return testDispatcher
-    }
-
-    @Singleton
-    @Provides
-    @BlockingDispatcher
-    fun provideBlockingDispatcher(@TestDispatcher testDispatcher: CoroutineDispatcher): CoroutineDispatcher {
-      return testDispatcher
-    }
-
-    // TODO(#59): Either isolate these to their own shared test module, or use the real logging
-    // module in tests to avoid needing to specify these settings for tests.
-    @EnableConsoleLog
-    @Provides
-    fun provideEnableConsoleLog(): Boolean = true
-
-    @EnableFileLog
-    @Provides
-    fun provideEnableFileLog(): Boolean = false
-
-    @GlobalLogLevel
-    @Provides
-    fun provideGlobalLogLevel(): LogLevel = LogLevel.VERBOSE
-  }
-
-  @Singleton
-  @Component(modules = [TestModule::class])
-  interface TestApplicationComponent {
-    @Component.Builder
-    interface Builder {
-      @BindsInstance
-      fun setApplication(application: Application): Builder
-
-      fun build(): TestApplicationComponent
-    }
-
-    fun inject(profileListActivityTest: ProfileListActivityTest)
   }
 }

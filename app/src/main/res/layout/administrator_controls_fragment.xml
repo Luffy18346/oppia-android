@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <data>
+    <variable
+      name="viewModel"
+      type="org.oppia.app.administratorcontrols.AdministratorControlsViewModel" />
+  </data>
   <ScrollView
     android:id="@+id/administrator_controls_scroll_view"
     android:layout_width="match_parent"
@@ -25,27 +30,29 @@
         android:text="@string/administrator_controls_general_label"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/edit_account_text_view"
+        app:layout_constraintBottom_toTopOf="@id/edit_account_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-      <TextView
-        android:id="@+id/edit_account_text_view"
+        app:layout_constraintTop_toTopOf="parent" />
+      <Button
+        android:id="@+id/edit_account_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:fontFamily="sans-serif"
+        android:gravity="start"
         android:paddingLeft="16dp"
         android:paddingTop="20dp"
         android:paddingRight="16dp"
         android:paddingBottom="20dp"
         android:text="@string/administrator_controls_edit_account"
+        android:textAllCaps="false"
         android:textColor="@color/oppiaPrimaryTextDark"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/profile_management_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/general_text_view"/>
+        app:layout_constraintTop_toBottomOf="@id/general_text_view" />
       <TextView
         android:id="@+id/profile_management_text_view"
         android:layout_width="match_parent"
@@ -59,27 +66,29 @@
         android:text="@string/administrator_controls_profile_management_label"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/edit_profiles_text_view"
+        app:layout_constraintBottom_toTopOf="@id/edit_profiles_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_account_text_view"/>
-      <TextView
-        android:id="@+id/edit_profiles_text_view"
+        app:layout_constraintTop_toBottomOf="@id/edit_account_button" />
+      <Button
+        android:id="@+id/edit_profiles_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:fontFamily="sans-serif"
+        android:gravity="start"
         android:paddingLeft="16dp"
         android:paddingTop="20dp"
         android:paddingRight="16dp"
         android:paddingBottom="20dp"
         android:text="@string/administrator_controls_edit_profiles"
+        android:textAllCaps="false"
         android:textColor="@color/oppiaPrimaryTextDark"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/download_permissions_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_management_text_view"/>
+        app:layout_constraintTop_toBottomOf="@id/profile_management_text_view" />
       <TextView
         android:id="@+id/download_permissions_text_view"
         android:layout_width="match_parent"
@@ -96,7 +105,7 @@
         app:layout_constraintBottom_toTopOf="@id/topic_update_on_wifi_constraint_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_profiles_text_view"/>
+        app:layout_constraintTop_toBottomOf="@id/edit_profiles_button" />
       <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topic_update_on_wifi_constraint_layout"
         android:layout_width="match_parent"
@@ -120,7 +129,7 @@
           android:textColor="@color/oppiaPrimaryTextDark"
           android:textSize="16sp"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"/>
+          app:layout_constraintTop_toTopOf="parent" />
         <TextView
           android:id="@+id/topic_update_on_wifi_description_text_view"
           android:layout_width="0dp"
@@ -132,17 +141,17 @@
           android:textSize="14sp"
           app:layout_constraintEnd_toStartOf="@id/topic_update_on_wifi_switch"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/topic_update_on_wifi_title_text_view"/>
+          app:layout_constraintTop_toBottomOf="@id/topic_update_on_wifi_title_text_view" />
         <androidx.appcompat.widget.SwitchCompat
           android:id="@+id/topic_update_on_wifi_switch"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:theme="@style/SwitchCompatTheme"
           android:paddingStart="36dp"
           android:paddingEnd="20dp"
+          android:theme="@style/SwitchCompatTheme"
           app:layout_constraintBottom_toBottomOf="@id/topic_update_on_wifi_description_text_view"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="@id/topic_update_on_wifi_title_text_view"/>
+          app:layout_constraintTop_toTopOf="@id/topic_update_on_wifi_title_text_view" />
       </androidx.constraintlayout.widget.ConstraintLayout>
       <View
         android:id="@+id/view_divider"
@@ -152,7 +161,7 @@
         app:layout_constraintBottom_toTopOf="@id/auto_update_topic_constraint_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topic_update_on_wifi_constraint_layout"/>
+        app:layout_constraintTop_toBottomOf="@id/topic_update_on_wifi_constraint_layout" />
       <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/auto_update_topic_constraint_layout"
         android:layout_width="match_parent"
@@ -176,7 +185,7 @@
           android:textColor="@color/oppiaPrimaryTextDark"
           android:textSize="16sp"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"/>
+          app:layout_constraintTop_toTopOf="parent" />
         <TextView
           android:id="@+id/auto_update_topic_description_text_view"
           android:layout_width="0dp"
@@ -188,18 +197,18 @@
           android:textSize="14sp"
           app:layout_constraintEnd_toStartOf="@id/auto_update_topic_switch"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/auto_update_topic_title_text_view"/>
+          app:layout_constraintTop_toBottomOf="@id/auto_update_topic_title_text_view" />
         <androidx.appcompat.widget.SwitchCompat
           android:id="@+id/auto_update_topic_switch"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:theme="@style/SwitchCompatTheme"
           android:checked="true"
           android:paddingStart="36dp"
           android:paddingEnd="20dp"
+          android:theme="@style/SwitchCompatTheme"
           app:layout_constraintBottom_toBottomOf="@id/auto_update_topic_description_text_view"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="@id/auto_update_topic_title_text_view"/>
+          app:layout_constraintTop_toTopOf="@id/auto_update_topic_title_text_view" />
       </androidx.constraintlayout.widget.ConstraintLayout>
       <TextView
         android:id="@+id/app_information_text_view"
@@ -214,27 +223,30 @@
         android:text="@string/administrator_controls_app_information_label"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/app_version_text_view"
+        app:layout_constraintBottom_toTopOf="@id/app_version_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/auto_update_topic_constraint_layout"/>
-      <TextView
-        android:id="@+id/app_version_text_view"
+        app:layout_constraintTop_toBottomOf="@id/auto_update_topic_constraint_layout" />
+      <Button
+        android:id="@+id/app_version_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:fontFamily="sans-serif"
+        android:gravity="start"
+        android:onClick="@{(v) -> viewModel.onAppVersionClicked()}"
         android:paddingLeft="16dp"
         android:paddingTop="20dp"
         android:paddingRight="16dp"
         android:paddingBottom="20dp"
         android:text="@string/administrator_controls_app_version"
+        android:textAllCaps="false"
         android:textColor="@color/oppiaPrimaryTextDark"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/account_actions_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_information_text_view"/>
+        app:layout_constraintTop_toBottomOf="@id/app_information_text_view" />
       <TextView
         android:id="@+id/account_actions_text_view"
         android:layout_width="match_parent"
@@ -248,26 +260,29 @@
         android:text="@string/administrator_controls_account_actions_label"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/log_out_text_view"
+        app:layout_constraintBottom_toTopOf="@id/log_out_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_version_text_view"/>
-      <TextView
-        android:id="@+id/log_out_text_view"
+        app:layout_constraintTop_toBottomOf="@id/app_version_button" />
+      <Button
+        android:id="@+id/log_out_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:fontFamily="sans-serif"
+        android:gravity="start"
+        android:onClick="@{(v) -> viewModel.onLogOutClicked()}"
         android:paddingLeft="16dp"
         android:paddingTop="20dp"
         android:paddingRight="16dp"
         android:paddingBottom="20dp"
         android:text="@string/administrator_controls_log_out"
+        android:textAllCaps="false"
         android:textColor="@color/oppiaPrimaryTextDark"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/account_actions_text_view"/>
+        app:layout_constraintTop_toBottomOf="@id/account_actions_text_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
 </layout>
