@@ -24,6 +24,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
       android:orientation="horizontal"
+      android:layout_marginBottom="36dp"
       android:padding="16dp"
       android:visibility="@{footerViewModel.isAdmin ? View.VISIBLE : View.GONE}">
 
