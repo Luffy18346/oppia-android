@@ -16,6 +16,7 @@
     android:background="@color/profileEditBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/profile_rename_contraint_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@color/white"
@@ -46,5 +47,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+      android:id="@+id/view_divider"
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:background="@color/grey"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/profile_rename_contraint_layout" />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
