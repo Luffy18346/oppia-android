@@ -50,6 +50,7 @@
   <color name="profileEditBackground">#E5E5E5</color>
   <color name="highlightedNavMenuItem">#C55F45</color>
   <color name="navBarHeaderBackground">#264653</color>
+  <color name="profileDeleteTextColor">#B92D00</color>
   <!-- SUBMIT BUTTON INACTIVE -->
   <color name="submitButtonInactive">#61999999</color>
   <color name="grey">#CCCCCC</color>
